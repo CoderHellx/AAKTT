@@ -1,0 +1,7 @@
+# Store all text files with LF line endings in the repo, regardless of OS.
+# Without this, Windows checkouts convert to CRLF and diffs/CI on Linux get noisy.
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.pdf binary
