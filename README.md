@@ -7,10 +7,11 @@ A tutor that turns a document or topic into a graph of concepts, works out what 
 
 ## Run locally
 
-Prerequisites: Python 3.13, [uv](https://docs.astral.sh/uv/) on your PATH.
+Prerequisites: Python 3.13, [uv](https://docs.astral.sh/uv/) on your PATH, Docker Desktop running.
 
 ```bash
 cp .env.example .env        # once, then edit values if needed
+docker compose up -d --wait # start Postgres (from the repo root) and wait until it's healthy
 cd backend                  # uv commands must run here, where pyproject.toml lives
 uv run uvicorn app.main:create_app --factory --reload
 ```

@@ -1,0 +1,26 @@
+# Local infrastructure for development. Start: docker compose up -d   Stop: docker compose down
+# Values like ${POSTGRES_USER} are read from the .env file next to this one.
+
+services:
+  db:
+    # Pin the major version: an unpinned image could jump to a new Postgres overnight.
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      # Bound to 127.0.0.1 only, so the database isn't reachable from your network.
+      - "127.0.0.1:5432:5432"
+    volumes:
+      # Named volume: data survives `docker compose down` (use `down -v` to wipe it).
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      # Docker's own readiness probe: is Postgres accepting connections yet?
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  pgdata:

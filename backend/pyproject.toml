@@ -5,7 +5,9 @@ description = "AAKTT+ backend: concept graphs, knowledge tracing, adaptive tutor
 requires-python = ">=3.13,<3.14"
 dependencies = [
     "fastapi>=0.149.0",
+    "psycopg[binary]>=3.3.6",
     "pydantic-settings>=2.16.0",
+    "sqlalchemy>=2.1.5",
     "uvicorn[standard]>=0.54.0",
 ]
 
