@@ -5,4 +5,24 @@ A tutor that turns a document or topic into a graph of concepts, works out what 
 - **Design and roadmap:** [ARCHITECTURE.md](ARCHITECTURE.md)
 - **Status:** Phase 1, milestone 1 (project skeleton)
 
-Setup instructions will be added as each piece of the skeleton lands.
+## Run locally
+
+Prerequisites: Python 3.13, [uv](https://docs.astral.sh/uv/) on your PATH.
+
+```bash
+cp .env.example .env        # once, then edit values if needed
+cd backend                  # uv commands must run here, where pyproject.toml lives
+uv run uvicorn app.main:create_app --factory --reload
+```
+
+Then open http://localhost:8000/docs (Swagger UI) or http://localhost:8000/health.
+
+## Checks
+
+From `backend/`:
+
+```bash
+uv run pytest
+uv run ruff check . && uv run ruff format --check .
+uv run mypy app tests
+```

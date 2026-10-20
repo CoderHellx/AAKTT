@@ -3,11 +3,16 @@ name = "aaktt-backend"
 version = "0.1.0"
 description = "AAKTT+ backend: concept graphs, knowledge tracing, adaptive tutoring"
 requires-python = ">=3.13,<3.14"
-dependencies = []
+dependencies = [
+    "fastapi>=0.149.0",
+    "pydantic-settings>=2.16.0",
+    "uvicorn[standard]>=0.54.0",
+]
 
 [dependency-groups]
 # Tools used only while developing, never shipped with the app.
 dev = [
+    "httpx2>=2.14.0",
     "mypy>=2.4.0",
     "pytest>=9.1.1",
     "ruff>=0.17.1",
@@ -30,3 +35,5 @@ select = ["E", "F", "I", "B", "UP"]
 [tool.mypy]
 strict = true
 python_version = "3.13"
+# Teaches mypy how Pydantic models/settings are constructed (fields, _env_file, etc.).
+plugins = ["pydantic.mypy"]
