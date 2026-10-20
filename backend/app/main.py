@@ -9,7 +9,7 @@ side effects (no settings read, no connections opened), which keeps tests and to
 from fastapi import FastAPI
 
 from app import __version__
-from app.api import health
+from app.api import health, version
 from app.config import Settings, get_settings
 
 
@@ -24,4 +24,5 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     application = FastAPI(title=settings.app_name, version=__version__)
     application.state.settings = settings
     application.include_router(health.router)
+    application.include_router(version.router)
     return application
